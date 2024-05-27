@@ -1,0 +1,25 @@
+.container {
+  max-width: 100%;
+  height: 100vh;
+  margin: auto;
+  background-color: #212129;
+  color: #acdd39!important;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button{
+  width: 30%;
+  background-color: #acdd39;
+  border: #acdd39 1px solid!important;
+  color: #212129!important;
+}
+
+.card{
+  background-color: #212129;
+  border: none;
+}
