@@ -1,0 +1,25 @@
+<div class="container d-flex flex-column justify-content-center">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-md-4 offset-md-4" >
+            <h2 class="text-center">Welcome to ChatHUB</h2>
+        <div class="text-center ">Please Register to start Chatting</div>
+        <div class="card">
+          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="card-body cardbody-color p-lg-5">
+            <div class="mb-3">
+              <input type="text" id="userName" placeholder="Username" class="form-control" ngModel name="userName" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" id="password" placeholder="Password" class="form-control" ngModel name="password" required />
+            </div>
+            <div class="text-center">
+              <button class="btn mb-5 w-100" type="submit" [disabled]="!registerForm.valid">Register</button>
+            </div>
+            <div class="text-center">
+              <a routerLink="/auth">Already have an account? Login here.</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
