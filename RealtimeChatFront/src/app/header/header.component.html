@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212129;">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home">ChatHub</a>
+
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/join-room" routerLinkActive="active">Join Room</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" (click)="logOut()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,22 @@
+.navbar {
+    background-color: #212129 !important;
+  }
+  
+  .navbar-brand, .nav-link {
+    color: #acdd39 !important;
+  }
+  
+  .nav-link.active {
+    border-bottom: 2px solid #acdd39;
+  }
+
+  li{
+    padding: 0px 10px;
+  }
+  ul{
+    display: flex;
+    flex-direction: row!important;
+  }
+  .navbar .container-fluid{
+    flex-wrap: nowrap!important;
+  }
