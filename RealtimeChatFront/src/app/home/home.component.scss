@@ -1,0 +1,144 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+.container {
+  max-width: 1170px;
+  margin: auto;
+  background-color: #212129;
+}
+
+h3 {
+  color: #ffffff;
+}
+
+
+
+.join {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+
+
+.inbox_people {
+  color: #ffffff;
+  background-color: #212129;
+  float: left;
+  overflow: hidden;
+  width: 40%;
+  border-right: 1px solid #818181;
+}
+
+.inbox_msg {
+  border: 1px solid #818181;
+  clear: both;
+  overflow: hidden;
+  background-color: #212129;
+}
+
+.top_spac {
+  margin: 20px 0 0;
+}
+
+.headind_srch {
+  padding: 10px 29px 10px 20px;
+  overflow: hidden;
+  border-bottom: 1px solid #818181;
+}
+
+
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+
+.srch_bar .input-group-addon {
+  margin: 0 0 0 -27px;
+}
+
+
+.chat_img {
+  float: left;
+  width: 11%;
+}
+
+.chat_ib {
+  float: left;
+  padding: 0 0 0 15px;
+  width: 88%;
+}
+
+.chat_people {
+  overflow: hidden;
+  clear: both;
+}
+
+
+
+.inbox_chat {
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+}
+
+.active_chat {
+  background: #40445a;
+}
+
+
+
+.received_withd_msg p {
+  background: #4c5265 none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+  margin-bottom: 6px;
+}
+
+.received_withd_msg {
+  width: 57%;
+}
+
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+
+
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+}
+
+.type_msg {
+  border-top: 1px solid #818181;
+  position: relative;
+}
+
+
+.messaging {
+  padding: 0 0 50px 0;
+}
+
+.msg_history {
+  height: 516px;
+  overflow-y: auto;
+}
+
