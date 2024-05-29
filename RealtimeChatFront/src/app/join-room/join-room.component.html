@@ -1,0 +1,18 @@
+<div class="container d-flex flex-column justify-content-center">
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <h2 class="text-center mt-5">Welcome to ChatHUB</h2>
+      <div class="text-center ">Please Join the Room to start Chatting</div>
+      <div class="card my-1">
+        <form [formGroup]="joinRoomForm" class="card-body cardbody-color p-lg-5 pb-5">
+          <div class="mb-3">
+            <input formControlName="room" type="text" class="form-control" id="roomname" placeholder="Room Name">
+          </div>
+          <div class="text-center">
+            <button [disabled]="joinRoomForm.invalid" (click)="joinRoom()" type="submit" class="btn px-5 mb-5 w-100">Join</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
