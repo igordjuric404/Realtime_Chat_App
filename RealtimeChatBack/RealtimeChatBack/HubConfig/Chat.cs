@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿// Konfiguracija SignalR huba
+using Microsoft.AspNetCore.SignalR;
 using RealtimeChatBack.HubModels;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RealtimeChatBack.HubConfig
 {
-    //4Tutorial
     public partial class MyHub
     {
+        // Metoda za dobijanje spiska online korisnika
         public async Task getOnlineUsers()
         {
             Guid currUserId = ctx.Connections.Where(c => c.SignalrId == Context.ConnectionId).Select(c => c.PersonId).SingleOrDefault();
@@ -26,8 +27,7 @@ namespace RealtimeChatBack.HubConfig
             await Clients.Caller.SendAsync("getOnlineUsersResponse", onlineUsers);
         }
 
-
-
+        // Metoda za slanje poruke drugom korisniku
         public async Task sendMsg(string connId, string msg)
         {
             await Clients.Client(connId).SendAsync("sendMsgResponse", Context.ConnectionId, msg);

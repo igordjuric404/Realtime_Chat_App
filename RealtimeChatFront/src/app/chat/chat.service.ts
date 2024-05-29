@@ -1,3 +1,5 @@
+// Upravlja konekcijom i komunikacijom sa SignalR serverom za chat
+
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
@@ -17,6 +19,7 @@ export class ChatService {
   public users: string[] = [];
 
   constructor() {
+    // Pokretanje konekcije i postavljanje slušaoca za poruke i povezane korisnike
     this.start();
     this.connection.on(
       'ReceiveMessage',
@@ -32,6 +35,7 @@ export class ChatService {
   }
 
   public async start() {
+    // Pokretanje konekcije sa SignalR serverom
     try {
       await this.connection.start();
     } catch (error) {
@@ -40,14 +44,17 @@ export class ChatService {
   }
 
   public async joinRoom(user: string, room: string) {
+    // Pridruživanje korisnika sobi
     return this.connection.invoke('JoinRoom', { user, room });
   }
 
   public async sendMessage(message: string) {
+    // Slanje poruke serveru
     return this.connection.invoke('SendMessage', message);
   }
 
   public async leaveChat() {
+    // Odjavljivanje iz chata
     return this.connection.stop();
   }
 }

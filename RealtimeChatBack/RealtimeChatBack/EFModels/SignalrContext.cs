@@ -1,4 +1,5 @@
-﻿using System;
+﻿// DbContext konfiguracija u sa entitetima Connections i Person
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -13,9 +14,12 @@ namespace RealtimeChatBack.EFModels
         {
         }
 
+        // DbSet za Connections entitet
         public virtual DbSet<Connections> Connections { get; set; }
+        // DbSet za Person entitet
         public virtual DbSet<Person> Person { get; set; }
 
+        // Konfigurisanje opcija za DbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -24,10 +28,12 @@ namespace RealtimeChatBack.EFModels
             }
         }
 
+        // Konfigurisanje modela entiteta
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
+            // Konfiguracija Connections entiteta
             modelBuilder.Entity<Connections>(entity =>
             {
                 entity.ToTable("connections");
@@ -48,6 +54,7 @@ namespace RealtimeChatBack.EFModels
                     .HasColumnName("timeStamp");
             });
 
+            // Konfiguracija Person entiteta
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("person");

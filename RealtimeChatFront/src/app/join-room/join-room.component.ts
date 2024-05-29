@@ -1,3 +1,5 @@
+// Pridružuje korisnike u chat
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,21 +19,25 @@ export class JoinRoomComponent implements OnInit {
     private chatService: ChatService
   ) {}
 
+  // Inicijalizacija forme za pridruživanje sobi
   ngOnInit(): void {
     this.joinRoomForm = this.fb.group({
-      room: ['', Validators.required],
+      room: ['', Validators.required], // Validacija za obavezno polje
     });
   }
 
   joinRoom() {
     const room = this.joinRoomForm.value.room;
-    const user = sessionStorage.getItem('user'); // Retrieve the username from session storage
+    const user = sessionStorage.getItem('user');
 
     if (user && room) {
+      // Postavljanje imena sobe u sessionStorage
       sessionStorage.setItem('room', room);
+      // Pozivanje metode za pridruživanje sobi iz ChatService
       this.chatService
         .joinRoom(user, room)
         .then(() => {
+          // Navigacija do chat komponente nakon uspešnog pridruživanja
           this.router.navigate(['chat']);
         })
         .catch((err) => {

@@ -1,4 +1,4 @@
-using System.Collections.Generic; // Add this directive
+using System.Collections.Generic; 
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,17 +20,21 @@ namespace RealtimeChatBack
     {
         public IConfiguration Configuration { get; }
 
+        // Konstruktor klase Startup, koristi se za konfigurisanje aplikacije
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        // Konfiguriše servise koje će aplikacija koristiti
         public void ConfigureServices(IServiceCollection services)
         {
+            // Dodaje DbContextPool za SignalrContext, konfiguriše ga da koristi SQL Server bazu podataka
             services.AddDbContextPool<SignalrContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"))
             );
 
+            // Konfiguriše CORS politiku za dozvoljene originale
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
@@ -49,16 +53,21 @@ namespace RealtimeChatBack
             });
 
             services.AddControllers();
+
+            // Dodaje Swagger za generisanje dokumentacije API-ja
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
+            // Dodaje singleton rečnik za čuvanje veza korisnika i soba
             services.AddSingleton<IDictionary<string, UserRoomConnection>>(opt => new Dictionary<string, UserRoomConnection>());
         }
 
+        // Konfiguriše aplikaciju i middleware
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Proverava da li je aplikacija u development modu
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,9 +78,13 @@ namespace RealtimeChatBack
                 });
             }
 
+            // Omogućava rutiranje
             app.UseRouting();
+
+            // Omogućava CORS politiku
             app.UseCors("AllowSpecificOrigin");
 
+            // Omogućava krajnje tačke za kontrolere i Hub-ove
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

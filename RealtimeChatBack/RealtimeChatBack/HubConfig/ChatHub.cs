@@ -1,3 +1,4 @@
+// SignalR Hub za upravljanje komunikacijom između korisnika
 using Microsoft.AspNetCore.SignalR;
 using RealtimeChatBack.EFModels;
 using RealtimeChatBack.HubModels;
@@ -19,6 +20,7 @@ namespace RealtimeChatBack.Hubs
             _context = context;
         }
 
+        // Metoda za pridruživanje korisnika sobi
         public async Task JoinRoom(UserRoomConnection userConnection)
         {
             var user = _context.Person.SingleOrDefault(u => u.Username == userConnection.User);
@@ -36,6 +38,7 @@ namespace RealtimeChatBack.Hubs
             await SendConnectedUser(userConnection.Room);
         }
 
+        // Metoda za slanje poruke u grupu
         public async Task SendMessage(string message)
         {
             if (_connection.TryGetValue(Context.ConnectionId, out UserRoomConnection userRoomConnection))
@@ -45,6 +48,7 @@ namespace RealtimeChatBack.Hubs
             }
         }
 
+        // Metoda koja se poziva kada se korisnik diskonektuje
         public override Task OnDisconnectedAsync(Exception? exp)
         {
             if (!_connection.TryGetValue(Context.ConnectionId, out UserRoomConnection roomConnection))
@@ -59,6 +63,7 @@ namespace RealtimeChatBack.Hubs
             return base.OnDisconnectedAsync(exp);
         }
 
+        // Metoda za slanje spiska konektovanih korisnika u grupu
         public Task SendConnectedUser(string room)
         {
             var users = _connection.Values

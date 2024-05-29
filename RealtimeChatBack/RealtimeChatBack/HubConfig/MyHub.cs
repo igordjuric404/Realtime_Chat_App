@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿// SignalR Hub za upravljanje funkcionalnostima realnog vremena u chatu
+using Microsoft.AspNetCore.SignalR;
 using RealtimeChatBack.EFModels;
 using RealtimeChatBack.HubModels;
 using System;
@@ -17,6 +18,7 @@ namespace RealtimeChatBack.HubConfig
             ctx = context;
         }
 
+        // Metoda koja se poziva kada korisnik prekine konekciju sa hubom
         public override Task OnDisconnectedAsync(Exception exception)
         {
             Guid currUserId = ctx.Connections.Where(c => c.SignalrId == Context.ConnectionId).Select(c => c.PersonId).SingleOrDefault();
@@ -26,11 +28,12 @@ namespace RealtimeChatBack.HubConfig
             return base.OnDisconnectedAsync(exception);
         }
 
+        // Metoda za registraciju novog korisnika
         public async Task RegisterUser(PersonInfo personInfo)
         {
             if (ctx.Person.Any(p => p.Username == personInfo.Username))
             {
-                await Clients.Caller.SendAsync("registerResponseFail", "Username already exists.");
+                await Clients.Caller.SendAsync("registerResponseFail", "Korisničko ime već postoji.");
                 return;
             }
 
@@ -38,7 +41,7 @@ namespace RealtimeChatBack.HubConfig
             {
                 Id = Guid.NewGuid(),
                 Username = personInfo.Username,
-                Password = personInfo.Password // In a real application, make sure to hash the password
+                Password = personInfo.Password // U pravoj aplikaciji, obavezno hashujte šifru
             };
 
             await ctx.Person.AddAsync(newPerson);
@@ -47,6 +50,7 @@ namespace RealtimeChatBack.HubConfig
             await Clients.Caller.SendAsync("registerResponseSuccess", newPerson);
         }
 
+        // Metoda za autentifikaciju korisnika
         public async Task AuthenticateUser(PersonInfo personInfo)
         {
             string currSignalrID = Context.ConnectionId;
@@ -73,6 +77,7 @@ namespace RealtimeChatBack.HubConfig
             }
         }
 
+        // Metoda za ponovnu autentifikaciju korisnika
         public async Task ReauthenticateUser(Guid personId)
         {
             string currSignalrID = Context.ConnectionId;
@@ -95,6 +100,7 @@ namespace RealtimeChatBack.HubConfig
             }
         }
 
+        // Metoda za odjavljivanje korisnika
         public void LogoutUser(Guid personId)
         {
             ctx.Connections.RemoveRange(ctx.Connections.Where(p => p.PersonId == personId).ToList());
@@ -103,6 +109,7 @@ namespace RealtimeChatBack.HubConfig
             Clients.Others.SendAsync("userOff", personId);
         }
 
+        // Metoda za dobijanje online korisnika
         public async Task FetchOnlineUsers()
         {
             Guid currUserId = ctx.Connections.Where(c => c.SignalrId == Context.ConnectionId).Select(c => c.PersonId).SingleOrDefault();
@@ -114,6 +121,7 @@ namespace RealtimeChatBack.HubConfig
             await Clients.Caller.SendAsync("getOnlineUsersResponse", onlineUsers);
         }
 
+        // Metoda za slanje poruke drugom korisniku
         public async Task SendMessageToUser(string connId, string msg)
         {
             await Clients.Client(connId).SendAsync("sendMsgResponse", Context.ConnectionId, msg);

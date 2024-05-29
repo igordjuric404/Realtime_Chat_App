@@ -1,11 +1,11 @@
+// Upravlja konekcijom i razmenom poruka sa serverom
+
 import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-
-//4Tutorial
 export class User {
   public id: string;
   public username: string;
@@ -13,51 +13,41 @@ export class User {
   public msgs: Array<Message>;
 }
 
-
-//5Tutorial
 export class Message {
-  constructor(
-    public content: string,
-    public mine: boolean
-  ) {}
+  constructor(public content: string, public mine: boolean) {}
 }
-
-
-
 
 @Injectable({ providedIn: 'root' })
 export class SignalrService {
-    constructor(
-        public toastr: ToastrService,
-        public router: Router //2Tutorial
-        ) { }
+  constructor(public toastr: ToastrService, public router: Router) {}
 
+  hubConnection: signalR.HubConnection;
+  userData: User;
 
-    hubConnection:signalR.HubConnection;
-    //4Tutorial
-    userData: User;
+  // Subjekt za emitovanje SignalR događaja
+  ssSubj = new Subject<any>();
 
-    //3Tutorial
-    ssSubj = new Subject<any>();
-    ssObs(): Observable<any> {
-        return this.ssSubj.asObservable();
-    }
+  // Observable za slušanje SignalR događaja
+  ssObs(): Observable<any> {
+    return this.ssSubj.asObservable();
+  }
 
-    startConnection = () => {
-        this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:5001/toastr', {
-            skipNegotiation: true,
-            transport: signalR.HttpTransportType.WebSockets
-        })
-        .build();
+  // Pokretanje SignalR konekcije
+  startConnection = () => {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('https://localhost:5001/toastr', {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets,
+      })
+      .build();
 
-        this.hubConnection
-        .start()
-        .then(() => {
-            this.ssSubj.next({type: "HubConnStarted"});
-        })
-        .catch(err => console.log('Error while starting connection: ' + err))
-    }
-
-
+    // Početak SignalR konekcije
+    this.hubConnection
+      .start()
+      .then(() => {
+        // Emitovanje događaja nakon uspešnog pokretanja konekcije
+        this.ssSubj.next({ type: 'HubConnStarted' });
+      })
+      .catch((err) => console.log('Error while starting connection: ' + err));
+  };
 }
