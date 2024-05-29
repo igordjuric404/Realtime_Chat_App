@@ -9,8 +9,8 @@ import { Observable, Subject } from 'rxjs';
 export class User {
   public id: string;
   public username: string;
-  public connId: string;//signalr
-  public msgs: Array<Message>;//5Tutorial (only client-side property)
+  public connId: string;
+  public msgs: Array<Message>;
 }
 
 

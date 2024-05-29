@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChatApplicationYT.Hubs
+namespace RealtimeChatBack.Hubs
 {
     public class ChatHub : Hub
     {

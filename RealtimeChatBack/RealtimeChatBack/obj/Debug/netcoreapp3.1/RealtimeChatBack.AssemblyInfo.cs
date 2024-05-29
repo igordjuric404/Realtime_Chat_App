@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RealtimeChatBack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69d6b1bffcd8c79511d64b4f6bdb4d883f6f1a31")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4eecf48d017964528feb1c624c1ee119f671e3aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("RealtimeChatBack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RealtimeChatBack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ChatComponent } from './chat/chat.component';
 import { JoinRoomComponent } from './join-room/join-room.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     AuthComponent,
     RegisterComponent,
+    ChatComponent,
     JoinRoomComponent,
     WelcomeComponent,
     HeaderComponent,

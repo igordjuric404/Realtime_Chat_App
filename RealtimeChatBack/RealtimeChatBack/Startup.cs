@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RealtimeChatBack.EFModels;
+using RealtimeChatBack.HubConfig;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using RealtimeChatBack.Hubs;
+using RealtimeChatBack;
 
 namespace RealtimeChatBack
 {
@@ -23,7 +27,9 @@ namespace RealtimeChatBack
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContextPool<SignalrContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"))
+            );
 
             services.AddCors(options =>
             {
@@ -48,6 +54,7 @@ namespace RealtimeChatBack
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
+            services.AddSingleton<IDictionary<string, UserRoomConnection>>(opt => new Dictionary<string, UserRoomConnection>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,7 +72,12 @@ namespace RealtimeChatBack
             app.UseRouting();
             app.UseCors("AllowSpecificOrigin");
 
-    
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<MyHub>("/toastr");
+                endpoints.MapHub<ChatHub>("/chat");
+            });
         }
     }
 }

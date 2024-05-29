@@ -1,4 +1,4 @@
-namespace ChatApplicationYT
+namespace RealtimeChatBack
 {
     public class UserRoomConnection
     {
